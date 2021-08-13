@@ -1,10 +1,10 @@
-# Dynamic Analysis Using Full System Emulation 
-The dynamic analysis is built using Qemu 4.1.1 and BuildRoot 2.
+# Dynamic Analysis Using Full-System Emulation 
+The dynamic analyzer is built using Qemu 4.1.1 and BuildRoot 2.
 We have created six different Linux enviornment for ARM, MIPS, MIPS-EL, SPARC, PPC, and SH4.
 We have packaged them using Docker to simplify their setup and usage.
 
 ## Quick Start
-First thing you want to do is go over to Dropbox folder and download the docker images here:
+The first thing you want to do is go over to the Dropbox folder and download the docker images here:
 
 ```
 https://www.dropbox.com/sh/llgvodpe545pu0m/AAAreuO7q4GOcTRWHRBd9Z9ta?dl=0
@@ -20,7 +20,7 @@ $> gunzip -d arm-qemu-1.0-uclibc.tar.gz
 $> docker load -i arm-qemu-1.0-uclibc.tar 
 ```
 
-Once you load the docker image, you can not run a test to make sure it works correctly like so:
+Once you load the docker image, you can now run a test to make sure it works correctly like so:
 
 ```bash
 $> docker run --rm -it arm-qemu:1.0-uclibc -h
@@ -42,7 +42,7 @@ example: /br2/run_analysis.sh -i /br2/malware.bin -t 60 -R -r evil.bin
 
 Next, you need to map the directory with the malware you want to analyze to a mount point inside the container (i.e. /br2/bins/).
 You can choose any path you want, but make sure to specify it as a parameter when running the docker container.
-The following is an example of how to run a malware sample in the ARM analyzer and what the output will look like:
+The following is an example of how to run a malware sample in the ARM analyzer and what the log output will look like:
 
 ```bash
 $> ls
@@ -52,26 +52,26 @@ $> ls bin
 ```
 
 As you can see, my current directory has a folder called bin, which contains the malware binary file.
-Next, we are going to run the newly imported docker container and mount the bin directory so that our full system analyzer runs the sample in a Linux environment.
+Next, I will run the newly imported docker container and mount the bin directory so that our full-system analyzer runs the sample in a Linux environment.
 
 ```bash
 $> docker run -it --rm -v $PWD/bin:/br2/bins --privileged arm-qemu:1.0-uclibc -i /br2/bins/4c962e8714a622d114a6b083e5eb9b2699bff4f4f04efd669020fb2d6f158e1e.bin -r abc.exe -t 35
 ```
 
 To understand the docker command, we will go through each flag and parameter to make this example illustrative.
-First, we invoke docker with the `run`command and pass `-it` flag, which tells docker to attach the output to the terminal output and allow interaction.
+First, we invoke Docker with the `run` command and pass `-it` flag, which tells Docker to attach the output to the terminal output and allow interaction.
 Next, we specify the `--rm` flag, which removes the container after it is done running.
 It does not remove the container's image, only the instance that ran the malware because we don't want them accumulating on the system.
-Next, we pass the `-v` flag, which tells docker to mount a "Volume" from the host machine to the docker container.
-In this case we mount our `bin` directory to the mount point `/br2/bins`. 
-Next, we pass the flag `--priviledged`, which gives the docker container the right to use the `mount` command.
+Next, we pass the `-v` flag, which tells Docker to mount a "Volume" from the host machine to the docker container.
+In this case, we mount our `bin` directory to the mount point `/br2/bins`. 
+Next, we pass the flag `--privileged`, which gives the docker container the right to use the `mount` command.
 The `mount` command is required to load the malware into the analysis environment using the Qemu file system.
-Finally, we specify the docker image we want to run, in this case it is `arm-qemu:1.0-uclibc`.
+Finally, we specify the docker image we want to run, in this case, it is `arm-qemu:1.0-uclibc`.
 The image is for the ARM arch. and it uses the `uClibc` for the Linux environment. 
 
 After that, we specify the malware analysis parameters to the analyzer, which will run inside the QEMU emulator.
-The `-i` flag specifies the path for the malware sample to run, the `-r` flag renames the sample to `abc.exe` and the `-t` flag sets the analysis timeout (35 seconds, the default is 60 seconds).
-The following is the output from the full system emulation:
+The `-i` flag specifies the path for the malware sample to run, the `-r` flag renames the sample to `abc.exe`, and the `-t` flag sets the analysis timeout (35 seconds, the default is 60 seconds).
+The following is the output from the full-system emulation:
 ```bash
 2021-08-13 04:38:49 INFO: Full file path to analyze: 
   /br2/bins/4c962e8714a622d114a6b083e5eb9b2699bff4f4f04efd669020fb2d6f158e1e.bin
@@ -114,7 +114,7 @@ QEMU 4.1.1 monitor - type 'help' for more information
 2021-08-13 04:39:58 INFO: Done!
 ```
 
-Once the analysis is done, you will find a tar gzip archive in the `bin` file like so:
+Once the analysis completes, you will find a tar gzip archive in the `bin` file like so:
 
 ```bash
 $> ls -1 bin/
@@ -124,4 +124,12 @@ $> ls -1 bin/
 
 The archive file contains the system call trace and the network traffic packet capture (PCAP).
 
+## System Overview
+TODO
+
+## Extending and Modifying The Analyzer
+TODO
+
+## Reporting Bugs
+TODO
 
