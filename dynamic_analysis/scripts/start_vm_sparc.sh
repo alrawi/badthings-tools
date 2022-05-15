@@ -1,0 +1,1 @@
+qemu-system-sparc -M SS-10 -m 128 -kernel ./zImage -drive file=./rootfs.ext2,format=raw -append "rootwait root=/dev/sda console=ttyS0,115200" -net nic,model=lance -net user,id=eth0,hostfwd=tcp::22-:22 -object filter-dump,id=pc0,netdev=eth0,file=dump.pcap -monitor unix:qemu-monitor-socket,server,nowait -daemonize

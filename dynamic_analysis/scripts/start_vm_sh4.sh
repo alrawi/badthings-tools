@@ -1,0 +1,1 @@
+qemu-system-sh4 -M r2d -m 128 -kernel ./zImage -drive file=./rootfs.ext2,if=ide,format=raw -append "rootwait root=/dev/sda console=ttySC1,115200 noiotrap" -netdev user,id=eth0,hostfwd=tcp::22-:22 -device rtl8139,netdev=eth0,id=eth0 -object filter-dump,id=pc0,netdev=eth0,file=dump.pcap  -monitor unix:qemu-monitor-socket,server,nowait -daemonize

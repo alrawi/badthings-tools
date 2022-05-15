@@ -128,6 +128,7 @@ The archive file contains the system call trace and the network traffic packet c
 TODO
 
 ## Extending and Modifying The Analyzer
+see `src` folder for source files to build environments, Dockerfiles, and helper scripts.
 TODO
 
 ## Reporting Bugs

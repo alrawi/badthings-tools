@@ -1,0 +1,1 @@
+qemu-system-ppc -M g3beige -m 128 -kernel ./vmlinux -drive file=./rootfs.ext2,format=raw -append "console=ttyS0 rootwait root=/dev/hda" -net nic,model=rtl8139 -net user,id=eth0,hostfwd=tcp::22-:22 -object filter-dump,id=pc0,file=dump.pcap,netdev=eth0 -monitor unix:qemu-monitor-socket,server,nowait -daemonize

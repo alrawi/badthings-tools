@@ -1,0 +1,1 @@
+qemu-system-mips -M malta -m 128 -kernel ./vmlinux -drive file=./rootfs.ext2,format=raw -append "rootwait root=/dev/hda" -net nic,model=pcnet -net user,id=eth0,hostfwd=tcp::22-:22 -object filter-dump,id=pc0,netdev=eth0,file=dump.pcap -monitor unix:qemu-monitor-socket,server,nowait -daemonize

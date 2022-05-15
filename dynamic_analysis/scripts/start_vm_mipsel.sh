@@ -1,0 +1,1 @@
+qemu-system-mipsel -M malta -m 12 -kernel ./vmlinux -drive file=./rootfs.ext2,if=ide,index=0,format=raw -append 'root=/dev/hda' -netdev user,id=eth0,hostfwd=tcp::22-:22 -device pcnet,netdev=eth0,id=eth0 -object filter-dump,id=pc0,netdev=eth0,file=dump.pcap -monitor unix:qemu-monitor-socket,server,nowait -daemonize
